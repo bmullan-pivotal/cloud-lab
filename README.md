@@ -835,12 +835,34 @@ The full name of the dependencies are :
 *org.springframework.boot:spring-boot-starter-data-rest*
 *com.h2database:h2*
 
+```xml
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+...
+
 
 ### 9.2 - Add a Simple Domain Object
 
 One example would be a Person object with First and Last names variables.
 
 ```java
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 @Entity
 public class Person {
 
