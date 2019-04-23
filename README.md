@@ -955,6 +955,14 @@ Key points:
 The full name of the dependency is :
 *mysql:mysql-connector-java*
 
+```xml
+<dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<scope>runtime</scope>
+</dependency>
+```
+
 
 ### 10.2 - Create a MySql Service Instance in PCF
 
