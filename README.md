@@ -1014,6 +1014,13 @@ We will use Flyway for performing MySQL migrations.
 The full name of the dependency is :
 *org.flywaydb:flyway-core*
 
+```xml
+<dependency>
+	<groupId>org.flywaydb</groupId>
+	<artifactId>flyway-core</artifactId>
+</dependency>
+```
+
 ### 11.2 - Add a Base Database Init Script:
 
 In the resources folder , create a db/migration sub-folder.
