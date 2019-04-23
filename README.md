@@ -1030,14 +1030,14 @@ In it create a V1__init.sql file (resources/db/migration/V1__init.sql).
 Add the following to it:
 
 ```sql
-CREATE TABLE PERSON (
+CREATE TABLE person (
 	id int NOT NULL AUTO_INCREMENT,
 	first_name varchar(255) not null,
 	last_name varchar(255) not null,
 	PRIMARY KEY (ID)
 );
 
-INSERT INTO PERSON (first_name, last_name) VALUES ('Peter', 'Parker');
+INSERT INTO person (first_name, last_name) VALUES ('Peter', 'Parker');
 ```
 
 ### 11.3 - Rebuild and redeploy to PCF
