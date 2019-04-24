@@ -275,7 +275,7 @@ public class HomePageController {
     @Value("${vcap.application.instance_id:localInstanceId}")
     private String instanceId;
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public String index(){
 
         Metrics.counter("application.indexpage.request").increment();
