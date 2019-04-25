@@ -100,6 +100,9 @@ public class HelloWorldController {
 }
 ```
 
+Note: See more examples of @RequestMapping options here
+https://github.com/bmullan-pivotal/dev-workshop-labs/blob/master/spring-boot-basics/final/springbox-catalog/src/main/java/lab/GreetingController.java
+
 ### 1.2 - Run the application
 
 > NOTE: Maven instructions are for Bash/Linux/MacOS ... for Windows , replace calls to *./mvnw* with *mvnw.cmd*
