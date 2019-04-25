@@ -792,18 +792,18 @@ cf marketplace
 To create a Redis Service run:
 
 ```sh
-cf create-service p-redis shared-vm custom-redis
+cf create-service rediscloud 30mb redis-<your initials>
 ```
 
 ### 8.3 - Bind the Service to our application
 
 ```sh
-cf bind-service cloud-lab custom-redis
+cf bind-service <app-name> redis-bm
 ```
 
 Restage your app:
 ```sh
-cf restage cloud-lab
+cf restage <app-name>
 ```
 
 Confirm connection to your Redis Server using the health endpoint: /actuator/health
