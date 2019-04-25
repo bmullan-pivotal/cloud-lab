@@ -674,6 +674,11 @@ Key points:
 One example would be performing an uppercase operation on a String with a time delay.
 
 ```java
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+
 @RestController
 public class CacheExampleController {
 
