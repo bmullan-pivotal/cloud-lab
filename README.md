@@ -983,13 +983,16 @@ cf marketplace
 To create a MySQL Service run:
 
 ```sh
-cf create-service p-mysql 100mb custom-mysql
+---------------cf create-service p-mysql 100mb custom-mysql
+cf create-service cleardb spark mysql-<your initials>
 ```
 
 ### 10.3 - Bind the Service to our application
 
 ```sh
-cf bind-service cloud-lab custom-mysql
+---------------cf bind-service cloud-lab custom-mysql
+cf bind-service <app-name> mysql-<your initials>
+
 ```
 
 Restage your app:
