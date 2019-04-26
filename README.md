@@ -100,8 +100,8 @@ public class HelloWorldController {
 }
 ```
 
-Note: See more examples of @RequestMapping options here
-https://github.com/bmullan-pivotal/dev-workshop-labs/blob/master/spring-boot-basics/final/springbox-catalog/src/main/java/lab/GreetingController.java
+Note: See more examples of @RequestMapping options [here]
+(https://github.com/bmullan-pivotal/dev-workshop-labs/blob/master/spring-boot-basics/final/springbox-catalog/src/main/java/lab/GreetingController.java)
 
 ### 1.2 - Run the application
 
@@ -792,18 +792,18 @@ cf marketplace
 To create a Redis Service run:
 
 ```sh
-cf create-service rediscloud 30mb redis-<your initials>
+cf create-service p-redis shared-vm custom-redis
 ```
 
 ### 8.3 - Bind the Service to our application
 
 ```sh
-cf bind-service <app-name> redis-bm
+cf bind-service cloud-lab custom-redis
 ```
 
 Restage your app:
 ```sh
-cf restage <app-name>
+cf restage cloud-lab
 ```
 
 Confirm connection to your Redis Server using the health endpoint: /actuator/health
@@ -952,6 +952,48 @@ Full list of features are available at:
 
 https://projectlombok.org/features/all
 
+### 9.8 - BONUS - Use the JdbcTemplate class to directly execute sql.
+
+Add a JdbcController class 
+
+```java
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class JdbcController {
+
+    @Autowired
+    JdbcTemplate template ;
+	
+    @RequestMapping("/createPerson")
+    public Person createNewPerson(
+    		@RequestParam(value="first", defaultValue="John") String first,
+        	@RequestParam(value="last", defaultValue="Smith") String last 
+    ) {
+		Person p = new Person();
+		p.setFirstName(first);
+		p.setLastName(last);
+		
+		template.update("INSERT INTO person (first_name,last_name) values(?,?)",
+				p.getFirstName(),
+				p.getLastName());
+		
+		return p;
+    }
+	
+}
+```
+
+Rebuild and rerun your application. You can then test the endpoint /createPerson with parameters.
+eg. /createPerson?first=Mary&last=Smith
+
+Then revisit the /persons endpoint to see that the person was added to the table.
+
 ## 10 - Data on PCF
 
 Key points:
@@ -983,15 +1025,13 @@ cf marketplace
 To create a MySQL Service run:
 
 ```sh
----------------cf create-service p-mysql 100mb custom-mysql
-cf create-service cleardb spark mysql-<your initials>
+cf create-service p-mysql 100mb custom-mysql
 ```
 
 ### 10.3 - Bind the Service to our application
 
 ```sh
----------------cf bind-service cloud-lab custom-mysql
-cf bind-service <app-name> mysql-<your initials>
+cf bind-service cloud-lab custom-mysql
 
 ```
 
