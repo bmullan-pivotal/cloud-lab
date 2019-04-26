@@ -611,6 +611,63 @@ Then restart your app:
 cf restage pcf-demo
 ```
 
+### 4.9 - BONUS - Performd a Custom HTTP HealthCheck
+
+If supplied PCF will call your healthcheck every 30 seconds and if it fails will automatically restart your app. By default PCF will perform a port based healthcheck which only determines that a connection can be opened on the listen port for your service. A custom healthcheck allows you to implement more sophisticated healthcheck logic. You can read more about healthchecks [here](https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html)
+
+Supply a healthcheck endpoint by implementing a REST api, in this case /check
+
+```java
+
+import javax.xml.ws.http.HTTPException;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@EnableScheduling
+public class HealthCheckController {
+	
+	long counter = 0;
+	
+	@RequestMapping("/check")
+    public void check() throws HTTPException {
+		System.out.println("check!");
+		
+		// after 60 seconds fail the healthcheck.
+		if (counter>60)
+			throw new HTTPException(502);
+	}
+	
+	@Scheduled(fixedRate = 1000)
+	public void counter() {
+		counter=counter+1;
+	}
+}
+```
+
+To configure the healthcheck you will need to add the following to the manifest.yml file
+
+```
+health-check-type: http
+health-check-http-endpoint: /check
+```
+
+Rebuild and redeploy the app to PCF. Tail the logs for your app
+
+```sh
+cf logs cloud-lab
+```
+
+After approximate 60 seconds you should see in the logs that PCF has restarted the app. 
+
+```logs
+ 2019-04-26T18:04:36.93-0400 [HEALTH/3] ERR Failed to make HTTP request to '/check' on port 8080: received status code 500 in 87ms
+```
+
+
+
 ## 5 - Configuration with Spring Boot
 
 Key points:
