@@ -569,7 +569,18 @@ Autopilot: Autopilot is a Cloud Foundry Go plugin that provides a subcommand, ze
 BlueGreenDeploy: cf-blue-green-deploy is a plugin, written in Go, for the Cloud Foundry Command Line Interface (cf CLI) that automates a few steps involved in zero-downtime deploys.
 
 
-### 4.6 - BONUS - Enable Custom Application Metrics Forwarding to PCF Metrics
+### 4.7 - BONUS - Perform a Zero Downtime Deploy using a V3 push command
+
+A new v3 push command (Experimental) has been added to perform a blue-green deployment in a single step. You can read more about it [here](https://docs.cloudfoundry.org/devguide/deploy-apps/rolling-deploy.html)
+
+To try it, make some changes to your app, rebuild and push with this command ...
+
+```
+cf v3-zdt-push cloud-lab
+```
+
+
+### 4.8 - BONUS - Enable Custom Application Metrics Forwarding to PCF Metrics
 
 Metric data can be sent to an Metric Platform of your choice including PCF Metrics.
 
