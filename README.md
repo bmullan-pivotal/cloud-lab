@@ -613,9 +613,9 @@ cf restage pcf-demo
 
 ### 4.9 - BONUS - Performd a Custom HTTP HealthCheck
 
-If supplied PCF will call your healthcheck every 30 seconds and if it fails will automatically restart your app. By default PCF will perform a port based healthcheck which only determines that a connection can be opened on the listen port for your service. A custom healthcheck allows you to implement more sophisticated healthcheck logic. You can read more about healthchecks [here](https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html)
+By default PCF will perform a port based healthcheck on your app by attempting to open a connection to the listen port. A custom healthcheck allows you to implement more sophisticated healthcheck logic. You can read more about healthchecks [here](https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html)
 
-Supply a healthcheck endpoint by implementing a REST api, in this case /check
+Supply a healthcheck endpoint by implementing a REST api, in this case the endpoint is /check. In this example after ~ 60 seconds the healthcheck will return an exception which will cause PCF to kill and restart this application.
 
 ```java
 
