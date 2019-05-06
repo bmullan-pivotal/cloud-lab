@@ -39,9 +39,15 @@ Cloud Native Lab - Simple Workshop demonstrating Cloud-Native development with S
 
 [https://docs.cloudfoundry.org/cf-cli/install-go-cli.html](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html)
 
+### Apache Maven (mvn) 
+
+[https://maven.apache.org/install.html](https://maven.apache.org/install.html)
+
 ### Java IDE of choice ..
 
-Intellij recommended .. The Community addition is free.
+[Spring Tools Suite 4 (based on eclipse)](https://spring.io/tools)
+
+Intellij  .. The Community addition is free.
 
 Using an non-Java IDE, can cause issues with test formatting as well as lack of "auto imports".
 
