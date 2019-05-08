@@ -1386,10 +1386,10 @@ Tip - to avoiding disclosing your Slack Webhook URL, instead of adding it to sou
 
 ## 16 - Pivotal Cloud Cache
 
-Spring Boot Data Gemfire 1.0 has been [https://spring.io/blog/2019/05/07/spring-boot-for-apache-geode-pivotal-gemfire-1-0-0-release-available](released!)
+Spring Boot Data Gemfire 1.0 has been [released!](https://spring.io/blog/2019/05/07/spring-boot-for-apache-geode-pivotal-gemfire-1-0-0-release-available)
 
-[https://github.com/bmullan-pivotal/pcc-helloworld](PCC Hello World)
+[PCC Hello World](https://github.com/bmullan-pivotal/pcc-helloworld)
 
-[https://github.com/bmullan-pivotal/geode-starter](Geode Starter Sample)
+[Geode Starter Sample](https://github.com/bmullan-pivotal/geode-starter)
 
 
