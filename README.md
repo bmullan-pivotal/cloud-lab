@@ -267,7 +267,6 @@ Via the GUI observe additional instances being spun up.
 
 ```java
 
-import io.micrometer.core.instrument.Metrics;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -286,8 +285,6 @@ public class HomePageController {
 
     @RequestMapping("/home")
     public String index(){
-
-        Metrics.counter("application.indexpage.request").increment();
 
         return "PCF Info: " + applicationName + "@" + spaceName + " " + instanceId;
     }
