@@ -157,55 +157,6 @@ You can test via a browser or commandline:
 curl localhost:8080
 ```
 
-### 1.4 - BONUS - Add Unit Tests for HelloWorld endpoint
-This can be done by creating a *HelloWorldControllerTests* Java class file in the test/java directory with:
-
-```java
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HelloWorldControllerTests {
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
-    @Test
-    public void testHelloWorld(){
-        String body = restTemplate.getForObject("/",String.class);
-
-        assertThat(body).contains("Hello world");
-    }
-}
-```
-
-With Intellij, you can now run the Test by right clicking on it.
-
-From the commandline you can run them with:
-
-```sh
-./mvwn test
-```
-
-On Windows machines:
-
-```sh
-mvnw.cmd test
-```
-
-**Fix the broken test -- hint the strings don't match**
-
-
-Note: RestTemplate and TestRestTemplate are the conventional ways for invoking / and testing HTTP/Rest calls.
-
 
 ## 2 - WebApplication on PCF
 
@@ -398,52 +349,6 @@ management.endpoints.web.exposure.include=*
 ```
 
 Rebuild, and check the http://localhost:8080/actuator endpoint for available ones.
-
-### 3.6 - BONUS - Add build information the /info endpoint
-
-We want to be able to easily view build information from running instances of our app.
-
-You will need to generate a META-INF/build-info.properties in your class path .. this can be automated :
-
-For Maven in the pom.xml .. update the build block to the following .. note the addition of the executions block:
-
-
-```xml
-<build>
-	<plugins>
-		<plugin>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-maven-plugin</artifactId>
-			<executions>
-				<execution>
-					<goals>
-						<goal>build-info</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-	</plugins>
-</build>
-```
-
-Rebuild, and check the http://localhost:8080/actuator/info endpoint.
-
-### 3.7 - BONUS - Add GIT Information to the /info endpoint
-
-For Maven users, the spring-boot-starter-parent POM includes a pre-configured plugin to generate a git.properties file. To use it, add the following declaration to your POM:
-
-```xml
-<build>
-	<plugins>
-		<plugin>
-			<groupId>pl.project13.maven</groupId>
-			<artifactId>git-commit-id-plugin</artifactId>
-		</plugin>
-	</plugins>
-</build>
-```
-
-**Note this requires that you have run a "git init" command on your working directory for this project**
 
 ### 3.8 - BONUS - Add Custom Application Metrics counter to your Hello Controller
 
@@ -1013,15 +918,6 @@ Restart your app, you should now see all SQL statement in the log output.
 
 This can be useful in identifying what actual SQL calls Spring Data is making.
 
-### 9.7 - BONUS - Simplify the Person Entity class by auto-generating Getters/Setters.
-
-Hint - Add the Lombok dependency , and use the Data annotation.
-
-Project Lombok is a java library that automatically plugs into your editor and build tools to can reduce Java Boiler Plate code in a number if ways including: Getter/Setter generation, Builder Pattern implementation, Checked Exception handling, and Resource Management.
-
-Full list of features are available at:
-
-https://projectlombok.org/features/all
 
 ### 9.8 - BONUS - Use the JdbcTemplate class to directly execute sql.
 
@@ -1122,89 +1018,6 @@ Where as with local H2 database usage (from the previous) step, Spring Boot auto
 
 
 
-## 11 - Database Migrations
-
-Key points:
-* High-level Database Migration Versioning Tools
-
-Spring Boot supports two higher-level migration tools: Flyway and Liquibase.
-
-We will use Flyway for performing MySQL migrations.
-
-### 11.1 - Add the FlyAwayDB dependency to your build script:
-
-The full name of the dependency is :
-*org.flywaydb:flyway-core*
-
-```xml
-<dependency>
-	<groupId>org.flywaydb</groupId>
-	<artifactId>flyway-core</artifactId>
-</dependency>
-```
-
-### 11.2 - Add a Base Database Init Script:
-
-In the resources folder , create a db/migration sub-folder.
-
-In it create a V1__init.sql file (resources/db/migration/V1__init.sql).
-
-Add the following to it:
-
-```sql
-CREATE TABLE person (
-	id int NOT NULL AUTO_INCREMENT,
-	first_name varchar(255) not null,
-	last_name varchar(255) not null,
-	PRIMARY KEY (ID)
-);
-
-INSERT INTO person (first_name, last_name) VALUES ('Peter', 'Parker');
-```
-
-### 11.3 - Rebuild and redeploy to PCF
-
-You can look at http://localhost:8080/actuator/flyway to review the list of scripts.
-
-FlyAway will only apply updates as needed, and keeps track of scripts run (in the flyway_schema_history table).
-
-### 11.4 - BONUS - Add a middleName value to the Person Object , and create Database Migration scripts for this
-
-```java
-    private String middleName;
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-```
-
-Create a V2__person_middle_name_addition.sql file (in db/migration).
-
-Add the following to it:
-
-```sql
-ALTER TABLE person ADD middle_name varchar(255);
-```
-
-Build and redeploy to PCF.
-
-Flyway will automatically upgrade the Database Schema version to v2.
-
-### 11.5 - BONUS - Add caching to a database lookup call
-
-Hint: Add a method definition with a Caching annotation to the PersonRepository interface.
-
-### 11.6 - BONUS - Deploy the PivotalMySQLWeb App into PCF to view the flyway_schema_history schema / and row values.
-
-App can be downloaded from:
-
-https://github.com/pivotal-cf/PivotalMySQLWeb
-
-It will also need to be bound to your MySQL instance.
 
 ## 12 - Scheduling with Spring Boot
 
