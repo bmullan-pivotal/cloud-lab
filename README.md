@@ -12,7 +12,6 @@ Cloud Native Lab - Simple Workshop demonstrating Cloud-Native development with S
 * Profiles
 * Cache
 * Data
-* Data Migration (Flyway)
 * Scheduling
 * Messages (AMQB)
 
